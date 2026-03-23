@@ -104,6 +104,8 @@ runs:
           git add forms/        
           # Check if there are changes to commit
           if ! git diff --cached --quiet; then
+            # pull first if any other worker changed the repo...
+            git pull --rebase origin ${{ github.ref }}
             # Commit and push changes
             git commit -m "Auto-commit: Update generated PDFs for ${{ inputs.language }}"
             git push origin HEAD:${{ github.ref }}

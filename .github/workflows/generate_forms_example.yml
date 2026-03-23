@@ -12,6 +12,8 @@ jobs:
         language: 
           - de
           - en
+      max-parallel: 1
+
     steps:
     
       - name: checkout repo

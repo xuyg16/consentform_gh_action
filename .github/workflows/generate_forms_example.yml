@@ -28,4 +28,7 @@ jobs:
         with:
          language: ${{ matrix.language }}
          project_toml: ${{ steps.read_toml.outputs.toml_content }}
-         commit_files: true
+         # uncommenting allows to push the files to the ./forms/ folder - but you need to define a token/secret first!
+         # commit_files: true
+         # token: ${{ secrets.CONSENT_FORM_ACTION }} 
+         

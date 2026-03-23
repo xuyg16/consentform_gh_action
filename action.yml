@@ -107,7 +107,9 @@ runs:
             # Commit and push changes
             git commit -m "Auto-commit: Update generated PDFs for ${{ inputs.language }}"
             # pull first if any other worker changed the repo...
+            git status
             git pull --rebase origin ${{ github.ref }}
+            git status
             git push origin HEAD:${{ github.ref }}
           fi
         

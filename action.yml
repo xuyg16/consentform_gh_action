@@ -29,30 +29,7 @@ runs:
           token: ${{ inputs.token }}
           ref: ${{ github.ref_name }}
           fetch-depth: 0  
-      
-      - name: Debug git checkout
-        shell: bash
-        run: |
-          echo "=== GitHub context ==="
-          echo "github.ref=${{ github.ref }}"
-          echo "github.ref_name=${{ github.ref_name }}"
-          echo "github.sha=${{ github.sha }}"
-
-          echo "=== HEAD ==="
-          git rev-parse HEAD
-
-          echo "=== status ==="
-          git status
-
-          echo "=== branches ==="
-          git branch -avv
-
-          echo "=== recent commits ==="
-          git log --oneline --decorate -10
-
-          echo "=== shallow? ==="
-          git rev-parse --is-shallow-repository
-          
+                    
       - name: Save project TOML content to file
         shell: bash
         run: |
@@ -133,9 +110,8 @@ runs:
             git commit -m "Auto-commit: Update generated PDFs for ${{ inputs.language }}"
             # pull first if any other worker changed the repo...
             git status
-            git pull --rebase origin ${{ github.ref }}
-            #git fetch origin ${{ github.ref_name }}
-            #git rebase origin/${{ github.ref_name }}
+            git pull --rebase origin ${{ github.ref_name }}
+            git status
             git push origin HEAD:${{ github.ref_name }}
           fi
         

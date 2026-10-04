@@ -27,6 +27,29 @@ runs:
         uses: actions/checkout@v4
         with:
           token: ${{ inputs.token }}
+      
+      - name: Debug git checkout
+        shell: bash
+        run: |
+          echo "=== GitHub context ==="
+          echo "github.ref=${{ github.ref }}"
+          echo "github.ref_name=${{ github.ref_name }}"
+          echo "github.sha=${{ github.sha }}"
+
+          echo "=== HEAD ==="
+          git rev-parse HEAD
+
+          echo "=== status ==="
+          git status
+
+          echo "=== branches ==="
+          git branch -avv
+
+          echo "=== recent commits ==="
+          git log --oneline --decorate -10
+
+          echo "=== shallow? ==="
+          git rev-parse --is-shallow-repository
           
       - name: Save project TOML content to file
         shell: bash
